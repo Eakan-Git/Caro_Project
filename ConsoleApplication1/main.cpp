@@ -42,7 +42,7 @@ void Menu(int choose)
 	_Common::gotoXY(36, 6);
 	cout << " XXX XXX     OOO   OOO";
 	_Common::gotoXY(36, 7);
-	cout << "  XXXXX      OOO   OOO";
+	cout << "  XXXXX      OOO   OOO        GROUP I";
 	_Common::gotoXY(36, 8);
 	cout << " XXX XXX     OOO   OOO";
 	_Common::gotoXY(36, 9);
