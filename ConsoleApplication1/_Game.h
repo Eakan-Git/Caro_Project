@@ -22,8 +22,8 @@
 #define ColorCode_Yellow		14
 #define ColorCode_White			15
 
-#define default_ColorCode		7
-#define default_Background		0
+#define default_ColorCode		16
+#define default_Background		23
 #define White_Background		240
 class _Game
 {
@@ -37,10 +37,14 @@ class _Game
 	int _command; // input-key from the players
 
 	bool _loop; // decision bool variable to exit game or not
+	
+	bool _load = false;
 
 public:
 	_Game(int, int, int);
 	~_Game();
+	bool getLoad();
+	void setLoad();
 	int getCommand();
 	bool isContinue();
 	char waitKeyBoard();
@@ -53,7 +57,98 @@ public:
 	void moveLeft();
 	void moveDown();
 	void moveUp();
+	bool getTurn();
+	int getX();
+	int getY();
+	_Board* getBoard();
+	bool getLoop();
+	void setX(int);
+	void setY(int);
+	void setTurn(bool);
+	void setLoop(bool);
+	void showXOBoard();
 };
+
+	void _Game::setLoad()
+	{
+		_load = true;
+	}
+
+	bool _Game::getLoad()
+	{
+		return _load;
+	}
+	void _Game::showXOBoard()
+	{
+		_b->drawBoardTest();
+		for (int i = 0; i < _b->getSize(); i++)
+		{
+			for (int j = 0; j < _b->getSize(); j++)
+			{
+				_Common::gotoXY(j * 4 + _b->getLeft() + 2, i * 2 + _b->getTop() + 1);
+				switch (_b->getXO(i, j))
+				{
+				case -1:
+					_Common::TextColor(ColorCode_Red);
+					printf("X");
+					_Common::TextColor(ColorCode_Black);
+					break;
+				case 1:
+					_Common::TextColor(ColorCode_DarkBlue);
+					printf("O");
+					_Common::TextColor(ColorCode_Black);
+					break;
+				case 0: break;
+				}
+			}
+		}
+	}
+
+	void _Game::setX(int x)
+	{
+	_x = x;
+	}
+
+	void _Game::setY(int y)
+	{
+		_y = y;
+	}
+
+	void _Game::setTurn(bool turn)
+	{
+		_turn = turn;
+	}
+
+	void _Game::setLoop(bool loop)
+	{
+		_loop = loop;
+	}
+
+	bool _Game::getLoop()
+	{
+	return _loop;
+	}
+
+
+	_Board* _Game::getBoard()
+	{
+		return _b;
+	}
+
+	int _Game::getX()
+	{
+		return _x;
+	}
+
+	int _Game::getY()
+	{
+		return _y;
+	}
+
+	bool _Game::getTurn()
+	{
+		return _turn;
+	}
 
 	_Game::_Game(int pSize, int pLeft, int pTop)
 	{
@@ -167,63 +262,4 @@ public:
 		}
 	}
 
-	void letPlay()
-	{
-		_Common::visibleCursorMode();
-		_Game g(BOARD_SIZE, LEFT, TOP);
-		g.startGame();
-		while (g.isContinue())
-		{
-			g.waitKeyBoard();
-
-			if (g.getCommand() == 27) g.exitGame();
-
-			else {
-
-				switch (g.getCommand())
-				{
-				case 'A': case 75:
-
-					g.moveLeft();
-
-					break;
-
-				case 'W': case 72:
-
-					g.moveUp();
-
-					break;
-
-				case 'S': case 80:
-
-					g.moveDown();
-
-					break;
-
-				case 'D': case 77:
-
-					g.moveRight();
-
-					break;
-				case 13: case ' ':
-
-					//Mark the board, then check and process win/lose/draw/continue
-
-					if (g.processCheckBoard())
-					{
-						switch (g.processFinish())
-						{
-
-						case -1: case 1: case 0:
-							if (g.askContinue() != 'Y') g.exitGame();
-
-							else g.startGame();
-
-						}
-					}
-				}
-
-			}
-
-		}
-	}
+	

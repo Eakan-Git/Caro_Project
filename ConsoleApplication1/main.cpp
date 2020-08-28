@@ -1,5 +1,7 @@
 #include <iostream>
+#include <fstream>
 #include <conio.h>
+#include <string>
 
 #include "_Common.h"
 #include "_Point.h"
@@ -8,9 +10,304 @@
 
 
 using namespace std;
+
+_Game g(BOARD_SIZE, LEFT, TOP);
+
+bool checkExist(string*, int, string);
+void letPlay();
+void Menu(int choose);
+void LoadGame();
+void showLoadList(string, string&);
+void Save(string);
+
+
+bool checkExist(string* arr, int n, string name)
+{
+	for (int i = 0; i < n; i++)
+	{
+		if (arr[i].compare(name) == 0)
+		{
+			_Common::gotoXY(20, 16);
+			cout << "File name exitsing, please choose another name!!!";
+			return false;
+		}
+	}
+	return true;
+}
+
+void ShowLoadList(string Filename, string& Fileload)
+{
+	_Common::invisibleCursorMode();
+	system("cls");
+	fstream f(Filename, ios::in || ios::out);
+	if (!f.is_open())
+	{
+		_Common::gotoXY(50, 12);
+		cout << "Error, can't find load list !!!" << endl;
+		return;
+	}
+	int numofsaves;
+	f >> numofsaves;
+	f.seekg(2, ios::cur);
+	string* ArrOfSaves = new string[numofsaves];
+	for (int i = 0; i < numofsaves; i++)
+	{
+		f >> ArrOfSaves[i];
+	}
+	_Common::gotoXY(50, 6);
+	cout << "Choose the file you want to load!!!";
+	string name;
+	bool check = true;
+	int choose = 0;
+	while (check)
+	{
+		for (int i = 0; i < numofsaves; i++)
+		{
+			_Common::gotoXY(50, 10 + i * 2);
+			cout << ArrOfSaves[i];
+		}
+
+		_Common::gotoXY(50, 10 + numofsaves * 2 + 2);
+		cout << "Go to back";
+
+		_Common::TextColor(ColorCode_Red);
+
+		for (int i = 0; i <= numofsaves; i++)
+		{
+			if (choose == i && i != numofsaves)
+			{
+				_Common::gotoXY(50, 10 + i * 2);
+				cout << ArrOfSaves[i];
+				break;
+			}
+
+			if (choose == numofsaves)
+			{
+				_Common::gotoXY(50, 10 + numofsaves * 2 + 2);
+				cout << "Go to back";
+				break;
+			}
+
+		}
+		_Common::TextColor(default_ColorCode);
+
+		char key = -1;
+		if (_kbhit()) key = toupper(_getch());
+		switch (key)
+		{
+		case 27:
+			choose = numofsaves;
+			break;
+		case 13: case 32:
+			if (choose == numofsaves) return;
+			else
+			{
+				Fileload = ArrOfSaves[choose];
+				return;
+			}
+			break;
+		case 'W': case 72:
+			choose--;
+			break;
+		case 'S': case 80:
+			choose++;
+			break;
+		}
+		if (choose < 0) choose = numofsaves;
+		if (choose > numofsaves) choose = 0;
+
+		Sleep(50);
+
+	}
+
+	f.close();
+	delete[] ArrOfSaves;
+}
+
+void  LoadGame()
+{
+	string LoadFile = "";
+	ShowLoadList("LoadList.txt", LoadFile);
+	fstream f(LoadFile, ios::in);
+	if (!f.is_open())
+	{
+		_Common::gotoXY(50, 19);
+		cout << "Error, cant open" << endl;
+		return;
+	}
+	int x, y, turn, loop,value;
+	f >> turn >> loop >> x >> y;
+	f.seekg(2, ios::cur);
+	for (int i = 0; i < g.getBoard()->getSize(); i++)
+	{
+		for (int j = 0; j < g.getBoard()->getSize(); j++)
+		{
+			f >> value;
+			g.getBoard()->setValue(i, j, value);
+		}
+	}
+	g.setLoop(loop);
+	g.setTurn(turn);
+	g.setX(x);
+	g.setY(y);
+	_Common::invisibleCursorMode();
+	system("cls");
+	g.showXOBoard();
+	_Common::gotoXY(g.getX(), g.getY());
+	_Common::visibleCursorMode();
+	f.close();
+	g.setLoad();
+	letPlay();
+}
+
+void SaveGame(string FileName)
+{
+	fstream f(FileName, ios::in || ios::out);
+	if (!f.is_open())
+	{
+		system("cls");
+		_Common::gotoXY(50, 17);
+		cout << "Error,can't open save data !!!" << endl;
+		system("pause");
+		return;
+	}
+	int numofsaves;
+	f >> numofsaves;
+	string* ArrOfSaves = new string[numofsaves + 1];
+	f.seekg(2, ios::cur);
+	for (int i = 0; i < numofsaves; i++)
+	{
+		getline(f, ArrOfSaves[i]);
+	}
+	string name;
+	system("cls");
+	_Common::gotoXY(50, 10);
+	cout << "***Save Game***" ; 
+	_Common::gotoXY(50, 12);
+	cout << "Save as : ";
+	_Common::visibleCursorMode();
+	do 
+	{
+		getline(cin, name);
+		name.append(".txt");
+	} 
+	while (!checkExist(ArrOfSaves, numofsaves, name));
+	ArrOfSaves[numofsaves] = name;
+	numofsaves += 1;
+
+	f.close();
+
+	fstream fsavelist(FileName, ios::out);
+
+	if (!fsavelist.is_open())
+	{
+		_Common::gotoXY(30, 16);
+		cout << "Error, cant open save file !!!";
+		return;
+	}
+	
+	fsavelist << numofsaves << endl;
+
+	for (int i = 0; i < numofsaves; i++)
+	{
+		fsavelist << ArrOfSaves[i] << endl;
+	}
+
+	fsavelist.close();
+	fstream fsavegame(name, ios::out);
+	bool Turn = g.getTurn();
+	bool Loop = g.getLoop();
+	int x, y;
+	x = g.getX();
+	y = g.getY();
+	fsavegame << Turn << " " << Loop << " " << x << " " << y << endl;
+	for (int i = 0; i < g.getBoard()->getSize(); i++)
+	{
+		for (int j = 0; j < g.getBoard()->getSize(); j++)
+		{
+			fsavegame << g.getBoard()->getXO(i,j) << " ";
+		}
+	}
+
+	fsavegame.close();
+	delete[] ArrOfSaves;
+}
+
+void letPlay()
+{	
+	_Common::visibleCursorMode();
+	if (!g.getLoad())
+	{
+		g.startGame();
+	}
+	while (g.isContinue())
+	{
+		g.waitKeyBoard();
+
+		if (g.getCommand() == 27) g.exitGame();
+
+		else {
+
+			switch (g.getCommand())
+			{
+			case 'L':
+				_Common::invisibleCursorMode();
+				system("cls");
+				SaveGame("LoadList.txt");
+				g.showXOBoard();
+				_Common::gotoXY(g.getX(), g.getY());
+				break;
+			case 'T':
+				LoadGame();
+			case 'A': case 75:
+
+				g.moveLeft();
+
+				break;
+
+			case 'W': case 72:
+
+				g.moveUp();
+
+				break;
+
+			case 'S': case 80:
+
+				g.moveDown();
+
+				break;
+
+			case 'D': case 77:
+
+				g.moveRight();
+
+				break;
+			case 13: case ' ':
+
+				//Mark the board, then check and process win/lose/draw/continue
+
+				if (g.processCheckBoard())
+				{
+					switch (g.processFinish())
+					{
+
+					case -1: case 1: case 0:
+						if (g.askContinue() != 'Y') g.exitGame();
+
+						else g.startGame();
+
+					}
+				}
+			}
+
+		}
+
+	}
+}
+
 void Menu(int choose)
 {
-	
+
 	_Common::invisibleCursorMode();
 
 	system("cls");
@@ -129,8 +426,7 @@ void Menu(int choose)
 				break;
 			case 1:
 				//Load Game
-
-
+				LoadGame();
 				Menu(1);
 				break;
 			case 2:
@@ -188,6 +484,8 @@ void Menu(int choose)
 	}
 
 }
+
+
 
 int main()
 {

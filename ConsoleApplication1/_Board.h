@@ -28,7 +28,17 @@ public:
 	int getXO(int, int);
 	int checkBoard(int, int, bool);
 	int testBoard(int&, int&);
+	void setValue(int, int, int);
 };
+	
+	void _Board::setValue(int i, int j, int value)
+	{
+		if (_size == 0) return; 
+		_pArr[i][j].setX(4 * j + _left + 2); 
+		_pArr[i][j].setY(2 * i + _top + 1); 
+		_pArr[i][j].setCheck(value);
+	}
+
 	int _Board::getSize() { return _size; }
 	int _Board::getLeft() { return _left; }
 	int _Board::getTop() { return _top; }
@@ -148,7 +158,39 @@ public:
 			cout << char(196) << char(196) << char(196) << char(193); //middle line
 		}
 		cout << char(196) << char(196) << char(196) << char(217); //end line
-		//move current pointer to the first block of the board
+		//move current pointer to the first block of the board_Common::gotoXY(36, 5);
+		_Common::gotoXY(86, 3);
+		_Common::TextColor(12);
+		cout << "XXX   XXX";
+		_Common::TextColor(9);
+		cout << "     OOOOOOO";
+		_Common::gotoXY(86, 4);
+		_Common::TextColor(12);
+		cout << " XXX XXX";
+		_Common::TextColor(9);
+		cout << "     OOO   OOO";
+		_Common::gotoXY(86, 5);
+		_Common::TextColor(12);
+		cout << "  XXXXX";
+		_Common::TextColor(9);
+		cout << "	   OOO   OOO" ;       
+		_Common::gotoXY(86, 6);
+		_Common::TextColor(12);
+		cout << " XXX XXX";
+		_Common::TextColor(9);
+		cout << "     OOO   OOO";
+		_Common::gotoXY(86, 7);
+		_Common::TextColor(12);
+		cout << "XXX   XXX";
+		_Common::TextColor(9);
+		cout <<"     OOOOOOO";
+		_Common::TextColor(16);
+		_Common::gotoXY(80, 12);
+		cout << "L:Save Game";
+		_Common::gotoXY(100, 12);
+		cout << "T:Load Game";
+		_Common::gotoXY(80, 14);
+		cout << "Esc:Back";
 		
 		_Common::gotoXY(_pArr[0][0].getX(), _pArr[0][0].getY());
 	}
