@@ -192,6 +192,32 @@ public:
 		_Common::gotoXY(80, 14);
 		cout << "Esc:Back";
 		
+		//ke bang vuong inforamtion
+		_Common::gotoXY(90, 25);
+		cout << "PLAYER INFORMATION";
+		_Common::gotoXY(80, 27);
+		cout << char(201);
+		for (int i = 0; i < 35; i++)
+		cout << char(205);
+		cout << char(187);
+		for (int i = 0; i < 10; i++)
+		{
+			_Common::gotoXY(80, 28 + i);
+			cout << char(186);
+		}
+		for (int i = 0; i < 10; i++)
+		{
+			_Common::gotoXY(116, 28 + i);
+			cout << char(186);
+		}
+		_Common::gotoXY(80, 38);
+		cout << char(200);
+		_Common::gotoXY(116, 38);
+		cout << char(188);
+		_Common::gotoXY(81, 38);
+		for (int i = 0; i < 35; i++)
+		cout << char(205);
+
 		_Common::gotoXY(_pArr[0][0].getX(), _pArr[0][0].getY());
 	}
 

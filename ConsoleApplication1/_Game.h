@@ -1,6 +1,8 @@
 #pragma once
 #include <stdio.h>
 #include <conio.h>
+#include <iostream>
+#include "_Player.h"
 
 #define BOARD_SIZE 19
 #define LEFT 1
@@ -27,7 +29,6 @@
 #define White_Background		240
 class _Game
 {
-
 	_Board* _b;// a board game
 
 	bool _turn;// turn: true for the 1st player and false for the 2nd player
@@ -39,6 +40,10 @@ class _Game
 	bool _loop; // decision bool variable to exit game or not
 	
 	bool _load = false;
+
+	_Player user1;
+
+	_Player user2;
 
 public:
 	_Game(int, int, int);
@@ -67,6 +72,9 @@ public:
 	void setTurn(bool);
 	void setLoop(bool);
 	void showXOBoard();
+	_Player& getUser1();
+	_Player& getUser2();
+	void showPlayerInfo();
 };
 
 	void _Game::setLoad()
@@ -179,6 +187,8 @@ public:
 		system("cls");
 		_b->resetData(); // Setting the original data
 		_b->drawBoardTest(); // Draw board
+		getUser1().setStep(0);
+		getUser2().setStep(0);
 		_x = _b->getXAt(0, 0);
 		_y = _b->getYAt(0, 0);
 	}
@@ -194,11 +204,13 @@ public:
 		switch (_b->checkBoard(_x, _y, _turn))
 		{
 		case -1:
+			getUser1().increaseStep();
 			_Common::TextColor(ColorCode_Red);
 			printf("X");
 			_Common::TextColor(ColorCode_Black);
 			break;
 		case 1:
+			getUser2().increaseStep();
 			_Common::TextColor(ColorCode_DarkBlue);
 			printf("O");
 			_Common::TextColor(ColorCode_Black);
@@ -216,13 +228,15 @@ public:
 		switch (pWhoWin)
 		{
 		case -1:
-			printf("THE PLAYER %d WON\n", true);//won and the player %d lost\n", true, false);
+			_Common::gotoXY(92, 18);
+			cout << getUser1().getName() << " WON!!! ";//won and the player %d lost\n", true, false);
 			break;
 		case 1:
-			printf("THE PLAYER %d WON\n", false);//and the player% d lost\n", false, true);
+			_Common::gotoXY(92, 18);
+			cout << getUser2().getName() << " WON!!! ";//and the player% d lost\n", false, true);
 			break;
 		case 0:
-			printf("DRAW\n");
+			cout << "DRAW";
 			break;
 		case 2:
 			_turn = !_turn; // change turn if nothing happen
@@ -262,4 +276,27 @@ public:
 		}
 	}
 
-	
+	_Player& _Game::getUser1()
+	{
+	return user1;
+	}
+
+	_Player& _Game::getUser2()
+	{
+	return user2;
+	}
+
+	void _Game::showPlayerInfo()
+	{
+		_Common::invisibleCursorMode();
+		_Common::gotoXY(83, 29);
+		cout << "Player 1: " << getUser1().getName();
+		_Common::gotoXY(104, 29);
+		cout << "Steps: " << getUser1().getStep();
+		_Common::gotoXY(83, 35);
+		cout << "Player 2: " << getUser2().getName();
+		_Common::gotoXY(104, 35);
+		cout << "Steps: " << getUser2().getStep();
+		_Common::gotoXY(_x, _y);
+		_Common::visibleCursorMode();
+	}

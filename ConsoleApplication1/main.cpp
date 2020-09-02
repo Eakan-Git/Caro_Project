@@ -7,6 +7,7 @@
 #include "_Point.h"
 #include "_Board.h"
 #include "_Game.h"
+#include "_Player.h"
 
 
 using namespace std;
@@ -67,12 +68,9 @@ void ShowLoadList(string Filename, string& Fileload)
 			cout << ArrOfSaves[i];
 		}
 
-		_Common::gotoXY(50, 10 + numofsaves * 2 + 2);
-		cout << "Go to back";
-
 		_Common::TextColor(ColorCode_Red);
 
-		for (int i = 0; i <= numofsaves; i++)
+		for (int i = 0; i < numofsaves; i++)
 		{
 			if (choose == i && i != numofsaves)
 			{
@@ -81,12 +79,6 @@ void ShowLoadList(string Filename, string& Fileload)
 				break;
 			}
 
-			if (choose == numofsaves)
-			{
-				_Common::gotoXY(50, 10 + numofsaves * 2 + 2);
-				cout << "Go to back";
-				break;
-			}
 
 		}
 		_Common::TextColor(default_ColorCode);
@@ -96,15 +88,11 @@ void ShowLoadList(string Filename, string& Fileload)
 		switch (key)
 		{
 		case 27:
-			choose = numofsaves;
-			break;
-		case 13: case 32:
-			if (choose == numofsaves) return;
-			else
-			{
-				Fileload = ArrOfSaves[choose];
-				return;
-			}
+			check = false;
+			return;
+		case 13: case 32:		
+			Fileload = ArrOfSaves[choose];
+			return;
 			break;
 		case 'W': case 72:
 			choose--;
@@ -113,8 +101,8 @@ void ShowLoadList(string Filename, string& Fileload)
 			choose++;
 			break;
 		}
-		if (choose < 0) choose = numofsaves;
-		if (choose > numofsaves) choose = 0;
+		if (choose < 0) choose = 0;
+		if (choose > numofsaves - 1) choose = 0;
 
 		Sleep(50);
 
@@ -135,8 +123,9 @@ void  LoadGame()
 		cout << "Error, cant open" << endl;
 		return;
 	}
-	int x, y, turn, loop,value;
-	f >> turn >> loop >> x >> y;
+	int x, y, turn, loop, value, player1step, player2step;
+	string player1name, player2name;
+	f >> turn >> loop >> x >> y >> player1name >> player2name >> player1step >> player2step;
 	f.seekg(2, ios::cur);
 	for (int i = 0; i < g.getBoard()->getSize(); i++)
 	{
@@ -150,6 +139,10 @@ void  LoadGame()
 	g.setTurn(turn);
 	g.setX(x);
 	g.setY(y);
+	g.getUser1().setName(player1name);
+	g.getUser2().setName(player2name);
+	g.getUser1().setStep(player1step);
+	g.getUser2().setStep(player2step);
 	_Common::invisibleCursorMode();
 	system("cls");
 	g.showXOBoard();
@@ -217,10 +210,14 @@ void SaveGame(string FileName)
 	fstream fsavegame(name, ios::out);
 	bool Turn = g.getTurn();
 	bool Loop = g.getLoop();
+	string player1name = g.getUser1().getName();
+	string player2name = g.getUser2().getName();
+	int player1step = g.getUser1().getStep();
+	int player2step = g.getUser2().getStep();
 	int x, y;
 	x = g.getX();
 	y = g.getY();
-	fsavegame << Turn << " " << Loop << " " << x << " " << y << endl;
+	fsavegame << Turn << " " << Loop << " " << x << " " << y << " " << player1name << " " << player2name << " " << player1step << " " << player2step << endl;
 	for (int i = 0; i < g.getBoard()->getSize(); i++)
 	{
 		for (int j = 0; j < g.getBoard()->getSize(); j++)
@@ -239,7 +236,9 @@ void letPlay()
 	if (!g.getLoad())
 	{
 		g.startGame();
+		
 	}
+	g.showPlayerInfo();
 	while (g.isContinue())
 	{
 		g.waitKeyBoard();
@@ -247,7 +246,6 @@ void letPlay()
 		if (g.getCommand() == 27) g.exitGame();
 
 		else {
-
 			switch (g.getCommand())
 			{
 			case 'L':
@@ -255,6 +253,7 @@ void letPlay()
 				system("cls");
 				SaveGame("LoadList.txt");
 				g.showXOBoard();
+				g.showPlayerInfo();
 				_Common::gotoXY(g.getX(), g.getY());
 				break;
 			case 'T':
@@ -287,7 +286,8 @@ void letPlay()
 				//Mark the board, then check and process win/lose/draw/continue
 
 				if (g.processCheckBoard())
-				{
+				{	
+					g.showPlayerInfo();
 					switch (g.processFinish())
 					{
 
@@ -297,12 +297,14 @@ void letPlay()
 						else g.startGame();
 
 					}
+					
 				}
 			}
 
 		}
 
 	}
+	g.setLoop(true);//set lai loop de co the newgame trong lan choi tiep theo
 }
 
 void Menu(int choose)
@@ -421,6 +423,13 @@ void Menu(int choose)
 				system("cls");
 				_Common::gotoXY(50, 7);
 				cout << "<< NEW GAME >>";
+				_Common::gotoXY(40, 10);
+				cout << "Input name Player 1: ";
+				_Common::visibleCursorMode();
+				g.getUser1().inputName();
+				_Common::gotoXY(40, 12);
+				cout << "Input name Player 2: ";
+				g.getUser2().inputName();
 				letPlay();
 				Menu(0);
 				break;

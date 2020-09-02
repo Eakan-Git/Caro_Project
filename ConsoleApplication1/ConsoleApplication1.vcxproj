@@ -156,6 +156,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="_Player.h" />
     <ClInclude Include="_Board.h" />
     <ClInclude Include="_Common.h" />
     <ClInclude Include="_Game.h" />
