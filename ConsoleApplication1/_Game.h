@@ -39,7 +39,7 @@ class _Game
 
 	bool _loop; // decision bool variable to exit game or not
 	
-	bool _load = false;
+	bool _load ;
 
 	_Player user1;
 
@@ -49,7 +49,7 @@ public:
 	_Game(int, int, int);
 	~_Game();
 	bool getLoad();
-	void setLoad();
+	void setLoad(bool);
 	int getCommand();
 	bool isContinue();
 	char waitKeyBoard();
@@ -77,9 +77,9 @@ public:
 	void showPlayerInfo();
 };
 
-	void _Game::setLoad()
+	void _Game::setLoad(bool load)
 	{
-		_load = true;
+		_load = load;
 	}
 
 	bool _Game::getLoad()
@@ -187,6 +187,7 @@ public:
 		system("cls");
 		_b->resetData(); // Setting the original data
 		_b->drawBoardTest(); // Draw board
+		setTurn(true);
 		getUser1().setStep(0);
 		getUser2().setStep(0);
 		_x = _b->getXAt(0, 0);
@@ -195,7 +196,6 @@ public:
 	void _Game::exitGame()
 	{
 		system("cls");
-		//Maybe save game before stopping
 		_loop = false;
 	}
 

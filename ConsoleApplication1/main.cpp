@@ -149,7 +149,7 @@ void  LoadGame()
 	_Common::gotoXY(g.getX(), g.getY());
 	_Common::visibleCursorMode();
 	f.close();
-	g.setLoad();
+	g.setLoad(true);
 	letPlay();
 }
 
@@ -243,7 +243,12 @@ void letPlay()
 	{
 		g.waitKeyBoard();
 
-		if (g.getCommand() == 27) g.exitGame();
+		if (g.getCommand() == 27)
+		{
+			g.setLoad(false);
+			g.exitGame();
+			break;
+		}
 
 		else {
 			switch (g.getCommand())
@@ -258,6 +263,7 @@ void letPlay()
 				break;
 			case 'T':
 				LoadGame();
+				return;
 			case 'A': case 75:
 
 				g.moveLeft();
@@ -314,7 +320,7 @@ void Menu(int choose)
 
 	system("cls");
 
-	//Display
+
 	//Draw box
 	_Common::gotoXY(32, 4);
 	for (int i = 20; i <= 70; i++)
