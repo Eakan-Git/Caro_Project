@@ -298,9 +298,15 @@ void letPlay()
 					{
 
 					case -1: case 1: case 0:
+						_Common::gotoXY(92, 20);
+						cout << "Try again?(Y/N)";
 						if (g.askContinue() != 'Y') g.exitGame();
 
-						else g.startGame();
+						else
+						{
+							letPlay();
+							Menu(0);
+						}
 
 					}
 					
