@@ -2,6 +2,7 @@
 #include <fstream>
 #include <conio.h>
 #include <string>
+#include <vld.h>
 
 #include "_Common.h"
 #include "_Point.h"
@@ -20,6 +21,7 @@ void Menu(int choose);
 void LoadGame();
 void showLoadList(string, string&);
 void Save(string);
+void Options();
 
 
 bool checkExist(string* arr, int n, string name)
@@ -55,7 +57,7 @@ void ShowLoadList(string Filename, string& Fileload)
 	{
 		f >> ArrOfSaves[i];
 	}
-	_Common::gotoXY(50, 6);
+	_Common::gotoXY(40, 6);
 	cout << "Choose the file you want to load!!!";
 	string name;
 	bool check = true;
@@ -89,10 +91,10 @@ void ShowLoadList(string Filename, string& Fileload)
 		{
 		case 27:
 			check = false;
-			return;
+			break;
 		case 13: case 32:		
 			Fileload = ArrOfSaves[choose];
-			return;
+			check = false;
 			break;
 		case 'W': case 72:
 			choose--;
@@ -232,12 +234,12 @@ void SaveGame(string FileName)
 
 void letPlay()
 {	
-	_Common::visibleCursorMode();
+	_Common::visibleCursorMode();	
 	if (!g.getLoad())
 	{
 		g.startGame();
-		
 	}
+	g.setTurn(g.getTurn());//change turn if Player2 play first
 	g.showPlayerInfo();
 	while (g.isContinue())
 	{
@@ -446,7 +448,6 @@ void Menu(int choose)
 				Menu(0);
 				break;
 			case 1:
-				//Load Game
 				LoadGame();
 				Menu(1);
 				break;
@@ -454,7 +455,7 @@ void Menu(int choose)
 				system("cls");
 				_Common::gotoXY(50, 7);
 				cout << "<< OPTIONS >>";
-				//options
+				Options();
 				Menu(2);
 				break;
 			case 3:
@@ -506,6 +507,58 @@ void Menu(int choose)
 
 }
 
+void Options()
+{
+	bool check = true;
+	int choose = 0;
+	while (check)
+	{
+		_Common::gotoXY(40, 9);
+		_Common::TextColor(ColorCode_Red);
+		cout << "First Player:";
+		_Common::TextColor(ColorCode_Black);
+		switch (choose)
+		{
+		case 0: 
+			_Common::gotoXY(55, 9);
+			cout << "Player 1";
+			break;
+		case 1:
+			_Common::gotoXY(55, 9);
+			cout << "Player 2";
+			break;
+		}
+		//Controler
+		char key = -1;
+		if (_kbhit()) key = toupper(_getch());
+		switch (key)
+		{
+		case 27:
+			return;
+		case 'A': case 75:
+			choose--;
+			break;
+		case 'D': case 77:
+			choose++;
+			break;
+		case 13: case 32:
+			check = false;
+			switch (choose)
+			{
+			case 0:
+				g.setTurn(true);
+				break;
+			case 1:
+				g.setTurn(false);
+				break;
+			}
+		}
+		//Loop Menu When Move To Top/ End
+		if (choose < 0) choose = 1;
+		if (choose > 1) choose = 0;
+		Sleep(50);
+	}
+}
 
 
 int main()

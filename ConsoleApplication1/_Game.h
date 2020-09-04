@@ -31,7 +31,7 @@ class _Game
 {
 	_Board* _b;// a board game
 
-	bool _turn;// turn: true for the 1st player and false for the 2nd player
+	bool _turn = true ;// turn: true for the 1st player and false for the 2nd player
 
 	int _x, _y; // current position of cursor
 
@@ -39,7 +39,7 @@ class _Game
 
 	bool _loop; // decision bool variable to exit game or not
 	
-	bool _load ;
+	bool _load = false;
 
 	_Player user1;
 
@@ -161,12 +161,14 @@ public:
 	_Game::_Game(int pSize, int pLeft, int pTop)
 	{
 		_b = new _Board(pSize, pLeft, pTop);
-		_loop = _turn = true;
+		_loop = true;
 		_command = -1; // Assign turn and default key
 		_x = pLeft; _y = pTop;
 	}
 
-	_Game::~_Game() { delete _b; }
+	_Game::~_Game() {
+		delete _b; 
+	}
 
 	int _Game::getCommand() { return _command; }
 	bool _Game::isContinue() { return _loop; }
@@ -187,7 +189,6 @@ public:
 		system("cls");
 		_b->resetData(); // Setting the original data
 		_b->drawBoardTest(); // Draw board
-		setTurn(true);
 		getUser1().setStep(0);
 		getUser2().setStep(0);
 		_x = _b->getXAt(0, 0);
@@ -228,15 +229,111 @@ public:
 		switch (pWhoWin)
 		{
 		case -1:
-			_Common::gotoXY(92, 18);
-			cout << getUser1().getName() << " WON!!! ";//won and the player %d lost\n", true, false);
+			_Common::invisibleCursorMode();
+			for (int i = 12; i > 6; i--)
+			{
+				_Common::TextColor(i);
+				_Common::gotoXY(85, 16);
+				cout << char(201) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205)
+					<< char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(187);
+				_Common::gotoXY(85, 17);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << " " << " " << " " << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 18);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 19);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << char(219) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 20);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 21);
+				cout << char(186) << " " << " " << " " << char(219) << char(219) << char(219) << " " << char(219) << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 22);
+				cout << char(186) << "                          " << char(186);
+				_Common::gotoXY(85, 23);
+				cout << char(186) << "        " << getUser1().getName() << " WIN!!!      " /*<< char(186)*/;  //won and the player %d lost\n", true, false);
+				_Common::gotoXY(112, 23);
+				cout << char(186);
+				_Common::gotoXY(85, 24);
+				cout << char(186) << "                          " << char(186);
+				_Common::gotoXY(85, 25);
+				cout << char(200) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205)
+					<< char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(188);
+				Sleep(800);
+			}
+			_Common::TextColor(ColorCode_Black);
+			
 			break;
 		case 1:
-			_Common::gotoXY(92, 18);
-			cout << getUser2().getName() << " WON!!! ";//and the player% d lost\n", false, true);
+			_Common::invisibleCursorMode();
+			for (int i = 12; i > 6; i--)
+			{
+
+				_Common::TextColor(i);
+				_Common::gotoXY(85, 16);
+				cout << char(201) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205)
+					<< char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(187);
+				_Common::gotoXY(85, 17);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << " " << " " << " " << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 18);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 19);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << char(219) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 20);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 21);
+				cout << char(186) << " " << " " << " " << char(219) << char(219) << char(219) << " " << char(219) << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << char(219) << char(219) << " " << " " << char(186);
+				_Common::gotoXY(85, 22);
+				cout << char(186) << "                          " << char(186);
+				_Common::gotoXY(85, 23);
+				cout << char(186) << "        " << getUser2().getName() << " WIN!!!      " /*<< char(186)*/;  //won and the player %d lost\n", true, false);
+				_Common::gotoXY(112, 23);
+				cout << char(186);
+				_Common::gotoXY(85, 24);
+				cout << char(186) << "                          " << char(186);
+				_Common::gotoXY(85, 25);
+				cout << char(200) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205)
+					<< char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(188);
+				Sleep(800);
+			}
+			_Common::TextColor(ColorCode_Black);
 			break;
 		case 0:
-			cout << "DRAW";
+			_Common::invisibleCursorMode();
+			for (int i = 12; i > 6; i--)
+			{
+				_Common::TextColor(i);
+				_Common::gotoXY(80, 16);
+				cout << char(201) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205)
+					<< char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(187);
+				_Common::gotoXY(80, 17);
+				cout << char(186) << " " << " " << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << " " << " " << char(219) << char(219) <<
+					char(219) << char(219) << char(219) << char(219) << " " << "  " << char(219) << char(219) << char(219) << char(219) << char(219) << " " <<
+					" " << char(219) << char(219) << " " << "    " << char(219) << char(219) << " " << " " << char(186);
+
+				_Common::gotoXY(80, 18);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << " " <<
+					char(219) << char(219) << " " << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) <<
+					" " << "    " << char(219) << char(219) << " " << " " << char(186);
+
+				_Common::gotoXY(80, 19);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << "  " << char(219) << char(219) << " " << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) <<
+					" " << " " << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << " " << char(219) << char(219) <<
+					" " << " " << char(219) << " " << " " << char(219) << char(219) << " " << " " << char(186);
+
+				_Common::gotoXY(80, 20);
+				cout << char(186) << " " << " " << char(219) << char(219) << " " << "  " << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << " " <<
+					char(219) << char(219) << " " << char(219) << char(219) << " " << " " << " " << char(219) << char(219) << " " << char(219) << char(219) << " " <<
+					char(219) << char(219) << char(219) << " " << char(219) << char(219) << " " << " " << char(186);
+
+				_Common::gotoXY(80, 21);
+				cout << char(186) << " " << " " << char(219) << char(219) << char(219) << char(219) << char(219) << char(219) << " " << " " << char(219) << char(219) << " " << "  " <<
+					char(219) << char(219) << " " << char(219) << char(219) << " " << "  " << char(219) << char(219) << " " << " " << char(219) << char(219) << char(219) <<
+					" " << char(219) << char(219) << char(219) << " " << " " << " " << char(186);
+				_Common::gotoXY(80, 22);
+				cout << char(200) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205)
+					<< char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(205) << char(188);
+				Sleep(800);
+			}
+			_Common::TextColor(ColorCode_Black);
 			break;
 		case 2:
 			_turn = !_turn; // change turn if nothing happen
@@ -244,6 +341,7 @@ public:
 		_Common::gotoXY(_x, _y);// Return the current position of cursor
 		return pWhoWin;
 	}
+
 	void _Game::moveRight()
 	{
 		if (_x < _b->getXAt(_b->getSize() - 1, _b->getSize() - 1))

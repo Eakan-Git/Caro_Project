@@ -5,7 +5,7 @@ class _Player
 {
 private:
 	string _name;
-	int _step;
+	int _step = 0;
 public:
 	string getName();
 	void inputName();

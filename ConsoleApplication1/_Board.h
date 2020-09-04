@@ -55,7 +55,6 @@ public:
 
 	_Board::_Board(int pSize, int pX, int pY)
 	{
-
 		_size = pSize;
 		_left = pX;
 		_top = pY;
