@@ -2,7 +2,7 @@
 #include <fstream>
 #include <conio.h>
 #include <string>
-#include <vld.h>
+//#include <vld.h>
 
 #include "_Common.h"
 #include "_Point.h"
@@ -23,7 +23,118 @@ void showLoadList(string, string&);
 void Save(string);
 void Options();
 
+void drawX(int left, int top)
+{
+	_Common::TextColor(ColorCode_Red);
+	int tmpTop = top;
 
+	_Common::gotoXY(left, tmpTop++); printf("    %c%c%c%c%c%c%c%c%c                   %c%c%c%c%c%c%c%c%c  ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("      %c%c%c%c%c%c%c%c%c               %c%c%c%c%c%c%c%c%c    ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c%c%c%c           %c%c%c%c%c%c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("          %c%c%c%c%c%c%c%c%c       %c%c%c%c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("            %c%c%c%c%c%c%c%c%c   %c%c%c%c%c%c%c%c%c          ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("             %c%c%c%c%c%c%c%c%c %c%c%c%c%c%c%c%c%c           ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("               %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c                ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("               %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c                ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("             %c%c%c%c%c%c%c%c%c %c%c%c%c%c%c%c%c%c           ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("            %c%c%c%c%c%c%c%c%c   %c%c%c%c%c%c%c%c%c          ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("          %c%c%c%c%c%c%c%c%c       %c%c%c%c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c%c%c%c           %c%c%c%c%c%c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("      %c%c%c%c%c%c%c%c%c               %c%c%c%c%c%c%c%c%c    ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("    %c%c%c%c%c%c%c%c%c                   %c%c%c%c%c%c%c%c%c  ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+
+
+
+	_Common::TextColor(ColorCode_Black);
+}
+void drawO(int left, int top)
+{
+	_Common::TextColor(ColorCode_Blue);
+	int tmpTop = top;
+
+	_Common::gotoXY(left, tmpTop++); printf("                %c%c%c%c%c%c%c%c%c%c%c%c%c%c                ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("             %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c             ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("           %c%c%c%c                %c%c%c%c           ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("         %c%c%c%c%c                  %c%c%c%c%c         ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c                  %c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c                  %c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c                  %c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c                  %c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c                  %c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c%c%c                  %c%c%c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("         %c%c%c%c%c                  %c%c%c%c%c         ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("           %c%c%c%c                %c%c%c%c           ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("             %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c             ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("                %c%c%c%c%c%c%c%c%c%c%c%c%c%c                ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+
+	_Common::TextColor(ColorCode_Black);
+}
+void drawCaro(int left, int top)
+{
+	int tmpTop = top;
+
+
+	_Common::gotoXY(left, tmpTop++); printf("       %c%c%c%c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("    %c%c%c%c%c%c%c%c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("  %c%c%c%c%c%c     %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c%c         %c%c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c               ", 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c               ", 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c               ", 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c               ", 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c%c         %c%c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("  %c%c%c%c%c%c     %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("    %c%c%c%c%c%c%c%c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("       %c%c%c%c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219);
+
+
+	left += 21;
+	tmpTop = top;
+	_Common::gotoXY(left, tmpTop++); printf("           %c%c%c           ", 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("          %c%c%c%c%c          ", 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("         %c%c%c%c%c%c%c         ", 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("        %c%c%c%c %c%c%c%c        ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("       %c%c%c%c   %c%c%c%c       ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("      %c%c%c%c     %c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("     %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c     ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("    %c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c    ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("   %c%c%c%c%c%c       %c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("  %c%c%c%c%c%c         %c%c%c%c%c%c  ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c%c%c           %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c%c             %c%c%c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+
+
+	left += 27;
+	tmpTop = top;
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c%c%c%c%c%c%c%c%c     ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c       %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c         %c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c         %c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c       %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c%c%c%c%c%c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c%c%c%c%c%c%c%c%c     ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c      %c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c       %c%c%c%c%c  ", 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c        %c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c         %c%c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219);
+
+
+	left += 19;
+	tmpTop = top;
+	_Common::gotoXY(left, tmpTop++); printf("      %c%c%c%c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("   %c%c%c%c%c%c%c%c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c%c%c     %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c         %c%c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c           %c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c           %c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c           %c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c           %c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("%c%c%c%c%c         %c%c%c%c%c", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf(" %c%c%c%c%c%c     %c%c%c%c%c%c ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("   %c%c%c%c%c%c%c%c%c%c%c%c%c   ", 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219, 219);
+	_Common::gotoXY(left, tmpTop++); printf("      %c%c%c%c%c%c%c      ", 219, 219, 219, 219, 219, 219, 219);
+}
 bool checkExist(string* arr, int n, string name)
 {
 	for (int i = 0; i < n; i++)
@@ -51,6 +162,15 @@ void ShowLoadList(string Filename, string& Fileload)
 	}
 	int numofsaves;
 	f >> numofsaves;
+	if (numofsaves == 0)
+	{
+		_Common::gotoXY(40, 6);
+		cout << "There's no file to load!";
+		_Common::gotoXY(40, 8);
+		system("pause");
+		f.close();
+		return;
+	}
 	f.seekg(2, ios::cur);
 	string* ArrOfSaves = new string[numofsaves];
 	for (int i = 0; i < numofsaves; i++)
@@ -239,7 +359,7 @@ void letPlay()
 	{
 		g.startGame();
 	}
-	g.setTurn(g.getTurn());//change turn if Player2 play first
+	g.setTurn(g.getTurn()); //change turn if Player2 play first
 	g.showPlayerInfo();
 	while (g.isContinue())
 	{
@@ -300,14 +420,20 @@ void letPlay()
 					{
 
 					case -1: case 1: case 0:
-						_Common::gotoXY(92, 20);
-						cout << "Try again?(Y/N)";
-						if (g.askContinue() != 'Y') g.exitGame();
 
-						else
+						_Common::gotoXY(93, 20);
+						cout << "TRY AGAIN?";
+						_Common::gotoXY(85, 22);
+						cout << "[Y] YES\t\t[N] NO";
 						{
-							letPlay();
-							Menu(0);
+							switch (g.askContinue())
+							{
+							case 'Y':
+								g.setLoad(false);
+								letPlay();
+							case 'N':
+								g.exitGame();
+							}
 						}
 
 					}
@@ -328,84 +454,53 @@ void Menu(int choose)
 
 	system("cls");
 
-
-	//Draw box
-	_Common::gotoXY(32, 4);
-	for (int i = 20; i <= 70; i++)
-	{
-		if (i == 20) putchar(201);
-		else if (i == 70) putchar(187);
-		else putchar(205);
-	}
-	for (int i = 5; i <= 10; i++)
-	{
-		_Common::gotoXY(32, i); putchar(186);
-		_Common::gotoXY(82, i); putchar(186);
-	}
-	_Common::gotoXY(32, 10);
-	for (int i = 20; i <= 70; i++)
-	{
-		if (i == 20) putchar(200);
-		else if (i == 70) putchar(188);
-		else putchar(205);
-	}
-
-	_Common::gotoXY(36, 5);
-	cout << "XXX   XXX     OOOOOOO";
-	_Common::gotoXY(36, 6);
-	cout << " XXX XXX     OOO   OOO";
-	_Common::gotoXY(36, 7);
-	cout << "  XXXXX      OOO   OOO        GROUP I";
-	_Common::gotoXY(36, 8);
-	cout << " XXX XXX     OOO   OOO";
-	_Common::gotoXY(36, 9);
-	cout << "XXX   XXX     OOOOOOO";
-
-
+	drawCaro(12, 2);
+	drawX(3, 16);
+	drawO(70, 16);
 	bool check = true;
 	while (check)
 	{
 		_Common::TextColor(ColorCode_Black);
 
-		_Common::gotoXY(55, 15);
-		cout << "New Game";
 		_Common::gotoXY(55, 17);
-		cout << "Load Game";
+		cout << "NEW GAME";
 		_Common::gotoXY(55, 19);
-		cout << "Options";
+		cout << "SAVED GAME";
 		_Common::gotoXY(55, 21);
-		cout << "About";
+		cout << "OPTIONS";
 		_Common::gotoXY(55, 23);
-		cout << "Help";
+		cout << "ABOUT";
 		_Common::gotoXY(55, 25);
-		cout << "Exit";
+		cout << "HELP";
+		_Common::gotoXY(55, 27);
+		cout << "EXIT";
 
 		_Common::TextColor(ColorCode_Red);
 		switch (choose)
 		{
 		case 0:
-			_Common::gotoXY(55, 15);
-			cout << "New Game";
+			_Common::gotoXY(55, 17);
+			cout << "NEW GAME";
 			break;
 		case 1:
-			_Common::gotoXY(55, 17);
-			cout << "Load Game";
+			_Common::gotoXY(55, 19);
+			cout << "SAVED GAME";
 			break;
 		case 2:
-			_Common::gotoXY(55, 19);
-			cout << "Options";
+			_Common::gotoXY(55, 21);
+			cout << "OPTIONS";
 			break;
 		case 3:
-			_Common::gotoXY(55, 21);
-			cout << "About";
+			_Common::gotoXY(55, 23);
+			cout << "ABOUT";
 			break;
 		case 4:
-			_Common::gotoXY(55, 23);
-			cout << "Help";
+			_Common::gotoXY(55, 25);
+			cout << "HELP";
 			break;
 		case 5:
-			_Common::gotoXY(55, 25);
-			cout << "Exit";
+			_Common::gotoXY(55, 27);
+			cout << "EXIT";
 			break;
 		}
 
@@ -440,10 +535,14 @@ void Menu(int choose)
 				_Common::gotoXY(40, 10);
 				cout << "Input name Player 1: ";
 				_Common::visibleCursorMode();
+				_Common::TextColor(ColorCode_Red);
 				g.getUser1().inputName();
+				_Common::TextColor(ColorCode_Black);
 				_Common::gotoXY(40, 12);
 				cout << "Input name Player 2: ";
+				_Common::TextColor(ColorCode_Blue);
 				g.getUser2().inputName();
+				_Common::TextColor(ColorCode_Black);
 				letPlay();
 				Menu(0);
 				break;
@@ -463,12 +562,24 @@ void Menu(int choose)
 				_Common::gotoXY(50, 7);
 				cout << "<< ABOUT >>";
 				_Common::gotoXY(40, 10);
-				cout << "BASE ON: MR.TRUONG TOAN THINH'S SOURCE CODE";
+				cout << "BASED ON: MR.TRUONG TOAN THINH'S SOURCE CODE";
 				_Common::gotoXY(40, 12);
 				cout << "DESIGN: GROUP I";
 				_Common::gotoXY(40, 14);
+				cout << "PHAM CHI BAO - 19127339";
+				_Common::gotoXY(40, 16);
+				cout << "TRAN KHAC HUNG - 19127413";
+				_Common::gotoXY(40, 18);
+				cout << "PHAM QUOC TOAN - 19127585";
+				_Common::gotoXY(40, 20);
+				cout << "NGUYEN QUANG TRUONG - 19127608";
+
+
+
+
+				_Common::gotoXY(40, 22);
 				cout << "YEAR: 2020";
-				_Common::gotoXY(40, 17);
+				_Common::gotoXY(40, 24);
 				system("pause");
 				Menu(3);
 				break;
@@ -476,6 +587,7 @@ void Menu(int choose)
 				system("cls");
 				_Common::gotoXY(50, 7);
 				cout << "<< HELP >>";
+
 				_Common::gotoXY(35, 10);
 				cout << "A/ LEFT ARROW KEY\t:\tMOVE LEFT";
 				_Common::gotoXY(35, 12);
@@ -488,6 +600,10 @@ void Menu(int choose)
 				cout << "SPACE BAR/ ENTER\t:\tCHOOSE/ DRAW";
 
 				_Common::gotoXY(35, 22);
+				cout << "TRY TO CHECK YOURS AND HAVE 5 MARKS IN A ROW";
+				_Common::gotoXY(35, 24);
+				cout << "    DON'T LET YOUR OPPONENT DO THAT, TOO";
+				_Common::gotoXY(35, 28);
 				system("pause");
 				Menu(4);
 				break;
@@ -514,18 +630,22 @@ void Options()
 	while (check)
 	{
 		_Common::gotoXY(40, 9);
-		_Common::TextColor(ColorCode_Red);
+
 		cout << "First Player:";
-		_Common::TextColor(ColorCode_Black);
+
 		switch (choose)
 		{
 		case 0: 
 			_Common::gotoXY(55, 9);
-			cout << "Player 1";
+			_Common::TextColor(ColorCode_Red);
+			cout << "X";
+			_Common::TextColor(ColorCode_Black);
 			break;
 		case 1:
 			_Common::gotoXY(55, 9);
-			cout << "Player 2";
+			_Common::TextColor(ColorCode_Blue);
+			cout << "O";
+			_Common::TextColor(ColorCode_Black);
 			break;
 		}
 		//Controler

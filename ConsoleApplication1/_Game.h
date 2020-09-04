@@ -191,8 +191,9 @@ public:
 		_b->drawBoardTest(); // Draw board
 		getUser1().setStep(0);
 		getUser2().setStep(0);
-		_x = _b->getXAt(0, 0);
-		_y = _b->getYAt(0, 0);
+		int mid = BOARD_SIZE / 2;
+		_x = _b->getXAt(mid, mid);
+		_y = _b->getYAt(mid, mid);
 	}
 	void _Game::exitGame()
 	{
@@ -349,11 +350,22 @@ public:
 			_x += 4;
 			_Common::gotoXY(_x, _y);
 		}
+		else
+		{
+			_x = LEFT + 2;
+			_Common::gotoXY(_x, _y);
+		}
 	}
 	void _Game::moveLeft()
 	{
-		if (_x > _b->getXAt(0, 0)) {
+		if (_x > _b->getXAt(0, 0))
+		{
 			_x -= 4;
+			_Common::gotoXY(_x, _y);
+		}
+		else
+		{
+			_x = (LEFT + 2) + BOARD_SIZE * 4 - 4;
 			_Common::gotoXY(_x, _y);
 		}
 	}
@@ -364,6 +376,11 @@ public:
 			_y += 2;
 			_Common::gotoXY(_x, _y);
 		}
+		else
+		{
+			_y = TOP + 1;
+			_Common::gotoXY(_x, _y);
+		}
 	}
 	void _Game::moveUp()
 	{
@@ -372,8 +389,12 @@ public:
 			_y -= 2;
 			_Common::gotoXY(_x, _y);
 		}
+		else
+		{
+			_y = (TOP + 1) + BOARD_SIZE * 2 - 2;
+			_Common::gotoXY(_x, _y);
+		}
 	}
-
 	_Player& _Game::getUser1()
 	{
 	return user1;
@@ -388,11 +409,17 @@ public:
 	{
 		_Common::invisibleCursorMode();
 		_Common::gotoXY(83, 29);
-		cout << "Player 1: " << getUser1().getName();
+		_Common::TextColor(ColorCode_Red);
+		cout << "Player 1: ";
+		_Common::TextColor(ColorCode_Black);
+		cout << getUser1().getName();
 		_Common::gotoXY(104, 29);
 		cout << "Steps: " << getUser1().getStep();
 		_Common::gotoXY(83, 35);
-		cout << "Player 2: " << getUser2().getName();
+		_Common::TextColor(ColorCode_Blue);
+		cout << "Player 2: ";
+		_Common::TextColor(ColorCode_Black);
+		cout << getUser2().getName();
 		_Common::gotoXY(104, 35);
 		cout << "Steps: " << getUser2().getStep();
 		_Common::gotoXY(_x, _y);
